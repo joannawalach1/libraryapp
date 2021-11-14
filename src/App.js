@@ -1,12 +1,10 @@
-import Header from "./components/Header";
-import BookList from "./components/BookList";
+import BookLists from "./components/BookLists";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <BookList />
+      <BookLists />
     </div>
   );
 }
