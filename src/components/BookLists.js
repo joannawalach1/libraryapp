@@ -101,7 +101,7 @@ const handleSubmit = () => {
               <Title>{item.volumeInfo.title}</Title>
               <Book src={item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail} alt='thumbnail' />
               <Read onClick = {() => setOpenModal(true)}>przeczytaj</Read>
-              {openModal&&<BookDetails closeModal = {setOpenModal}/>}
+              {openModal&&<BookDetails closeModal = {setOpenModal} id = {item.id} title={item.volumeInfo.title} authors={item.volumeInfo.authors} description = {item.volumeInfo.description} thumbnail={item.volumeInfo.imageLinks.thumbnail}/>}
             </Card>
           ))}
         </Container></>
