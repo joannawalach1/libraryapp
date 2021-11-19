@@ -21,21 +21,21 @@ const ModalContainer = styled.div `
 const ModalHeader = styled.div `
 color: red;`
 
+const BookDetails = ({closeModal,id,authors,title,description,thumbnail}) => {
 
-const BookDetails = ({ closeModal, id, authors, title, description, thumbnail}) => {
     return (
         <ModalBackground>
-        <ModalContainer>
-        <button onClick = {() => closeModal(false)}> X </button>
+        <ModalContainer >
+        <button> X </button>
         <ModalHeader>
-            <h1> {id}</h1>
+            <h1>{id}</h1>
         <h1>{title} </h1> 
         <h3>{authors}</h3>
         </ModalHeader>
         <div>
         <p> ModalBody </p>
-        {thumbnail}
-        {description}
+        <img src={thumbnail} alt="thumbnail" />
+        <p>{description}</p>
         </div>
         <div>
         <button>continue</button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import HeaderImg from './../img/header.jpg';
 import BookDetails from './BookDetails';
@@ -78,36 +78,38 @@ function App () {
 const [input, setInput] = useState('');
 const [books, setBooks] = useState([]);
 const [openModal, setOpenModal] = useState(false);
+const [modalData, setModalData] = useState(null);
+
 
 const handleSubmit = () => {
-    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
-    .then(response => setBooks(response.data.items))
-    .catch(err => console.log(err))
+  axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
+  .then(response => setBooks(response.data.items))
+  .catch(err => console.log(err))
 };
 
-    return (   
-        <><Header>
-        <Heading>Library App</Heading>
-        <SearchBar>
-          <Input type="text" value={input} onChange={e => setInput(e.target.value)}></Input>
-          <Button onClick={handleSubmit}>search</Button>
-        </SearchBar>
-          <Image src={HeaderImg} alt="header" />
-      </Header>
-      <Container>
-          {books.map(item => (
-            <Card key={item.id}>
-              <Author>{item.volumeInfo.authors} </Author>
-              <Title>{item.volumeInfo.title}</Title>
-              <Book src={item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail} alt='thumbnail' />
-              <Read onClick = {() => setOpenModal(true)}>przeczytaj</Read>
-              {openModal&&<BookDetails closeModal = {setOpenModal} id = {item.id} title={item.volumeInfo.title} authors={item.volumeInfo.authors} description = {item.volumeInfo.description} thumbnail={item.volumeInfo.imageLinks.thumbnail}/>}
-            </Card>
-          ))}
-        </Container></>
-    )}
-
+return (
+  <><Header>
+    <Heading>Library App</Heading>
+    <SearchBar>
+      <Input type="text" value={input} onChange={e => setInput(e.target.value)}></Input>
+      <Button onClick={handleSubmit}>search</Button>
+    </SearchBar>
+    <Image src={HeaderImg} alt="header" />
+  </Header>
+  <Container>
+      {books.map((item) => (
+        <Card key={item.id}>{item.id}
+          <Author>{item.volumeInfo.authors} </Author>
+          <Title>{item.volumeInfo.title}</Title>
+          <Book src={item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail} alt='thumbnail' />
+          <Read onClick= {() => { 
+            setModalData(item);
+            setOpenModal(true);} } >przeczytaj</Read>
+          </Card>))}
+  </Container>
+  
+        {openModal && <BookDetails closeModal={() => setOpenModal(true)} key={modalData.id} id={modalData.id} title={modalData.volumeInfo.title} authors={modalData.volumeInfo.authors} description={modalData.volumeInfo.description} thumbnail={modalData.volumeInfo.imageLinks.thumbnail} />}
+    )
+    </>
+      )}
     export default App;
-
-
-
